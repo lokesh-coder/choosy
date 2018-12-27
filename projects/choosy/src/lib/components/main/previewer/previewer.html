@@ -1,0 +1,17 @@
+<div class="choosy-headboard">
+  <ng-template *ngTemplateOutlet="headerTpl"></ng-template>
+</div>
+<div class="choosy-previewer-panel" *ngIf="!optionsLoading && initialOptions">
+  <div class="main-panel">
+    <choosy-filter-widget *ngIf="config.search?.enable" (search)="search($event)"></choosy-filter-widget>
+    <choosy-simple-list-view [options]="initialOptions" [optionTpl]="optionTpl" [config]="config" (optionHover)="hoveredOption=$event"></choosy-simple-list-view>
+    <choosy-info-panel-widget [options]="initialOptions" *ngIf="config.footer.enable"></choosy-info-panel-widget>
+  </div>
+  <div class="preview-panel">
+    <ng-container *ngIf="hoveredOption">
+      <ng-template *ngTemplateOutlet="previewTpl;context:{$implicit:hoveredOption.value}"></ng-template>
+    </ng-container>
+  </div>
+</div>
+
+<choosy-loader-widget *ngIf="optionsLoading"></choosy-loader-widget>

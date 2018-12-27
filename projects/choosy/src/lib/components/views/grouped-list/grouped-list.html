@@ -1,0 +1,9 @@
+<ng-container *ngIf="options|async as groups">
+  <ng-container *ngFor="let group of (groups | groupBy:config.groupBy)">
+    <div class="choosy-group-heading">{{group.key}}</div>
+    <ng-container *ngFor="let groupitem of group.value">
+      <choosy-option-widget [option]="groupitem" [optionTpl]="optionTpl" (clicked)="optionClicked($event)" (hover)="hover($event)"
+        *ngIf="!groupitem.state.hidden"></choosy-option-widget>
+    </ng-container>
+  </ng-container>
+</ng-container>
